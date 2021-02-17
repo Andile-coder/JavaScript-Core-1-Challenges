@@ -1,58 +1,99 @@
-function calculateLargestNumber(arrayOfNumbers) {
-  // Write your code in here
+/*
+Below are some restaurants in Glasgow. Each restaurant has a name, the number of total seats,
+the number of customers in the restaurant at the moment and the menu with prices.
 
-  return 1;
-}
+We want to build an object to simulate a Restaurant Finder application (see below restaurantFinderApplication).
 
-/**                            */
-/**                            */
-/**                            */
-/** DO NOT EDIT BELOW THIS LINE*/
-/**                            */
-/**                            */
-/**                            */
-/**                            */
+1) Define a method findAvailableRestaurants which takes a number of people in parameter and returns
+all the restaurant names which have the required number of seats available at the moment.
 
-const util = require("util");
+2) Define a method findRestaurantServingDish which takes a dish name in parameter and returns
+all the restaurant names serving this dish.
 
-console.log("---------------");
-let randomList = generateLargeListOfNumbers();
-let largestRandom = calculateLargestNumber(generateLargeListOfNumbers());
+3) Define a method countNumberOfRestaurantsInArea which takes an area of Glasgow in parameter (center, west),
+and returns the number of restaurants in this area.
+*/
+
+let restaurant1 = {
+  name: "Paesano",
+  totalSeats: 10,
+  numberOfCustomers: 8,
+  address: {
+    city: "Glasgow",
+    area: "center",
+  },
+  menu: ["pizza", "calzone", "salad"],
+};
+
+let restaurant2 = {
+  name: "Ubiquitous Chip",
+  totalSeats: 20,
+  numberOfCustomers: 10,
+  address: {
+    city: "Glasgow",
+    area: "west",
+  },
+  menu: ["salad", "chocolate cake", "roast lamb"],
+};
+
+let restaurant3 = {
+  name: "Monkeyz",
+  totalSeats: 15,
+  numberOfCustomers: 8,
+  address: {
+    city: "Glasgow",
+    area: "center",
+  },
+  menu: ["stew", "chocolate cake", "panini"],
+};
+
+let restaurants = [restaurant1, restaurant2, restaurant3];
+
+/*
+DO NOT EDIT ANYTHING ABOVE THIS LINE
+WRITE YOUR CODE BELOW
+*/
+
+let restaurantFinderApplication = {
+  applicationName: "Restaurant Finder",
+  applicationVersion: "1.0",
+  restaurants: restaurants,
+  findAvailableRestaurants: function (numberOfPeople) {
+    return restaurants.filter((item) => {
+      if (item.numberOfCustomers - numberOfPeople >= numberOfPeople) {
+        return item.name;
+      }
+    });
+  },
+  findRestaurantServingDish: function (dishName) {
+    // Complete here
+  },
+  countNumberOfRestaurantsInArea: function (area) {
+    // Complete here
+  },
+};
+
+/*
+DO NOT EDIT ANYTHING BELOW THIS LINE
+*/
+
+let restaurantsAvailableFor5People = restaurantFinderApplication.findAvailableRestaurants(
+  5
+);
 console.log(
-  "Given the array of random numbers that looks like this: " +
-    randomList.toString()
+  `Find available restaurants for 5 people: Expected result: Ubiquitous Chip,Monkeyz, actual result: ${restaurantsAvailableFor5People}`
 );
 
-console.log("");
-console.log("You have said the largest number was " + largestRandom);
-console.log("Is this right?");
-console.log("---------------");
-
-test(["Code works for a small array"], calculateLargestNumber([1, 2, 3]), 3);
-test(
-  ["Code works for a medium array"],
-  calculateLargestNumber([1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3]),
-  3
+let restaurantsServingSalad = restaurantFinderApplication.findRestaurantServingDish(
+  "salad"
 );
-test(
-  ["Code works for a negative numbers"],
-  calculateLargestNumber([1, -2, -3]),
-  1
+console.log(
+  `Find restaurants serving salad: Expected result: Paesano,Ubiquitous Chip, actual result: ${restaurantsServingSalad}`
 );
 
-function test(test_name, actual, expected) {
-  let status;
-  if (actual === expected) {
-    status = "PASSED";
-  } else {
-    status = `FAILED: expected: ${util.inspect(
-      expected
-    )} but your function returned: ${util.inspect(actual)}`;
-  }
-
-  console.log(`${test_name}: ${status}`);
-}
-
-function generateLargeListOfNumbers() {
-  return Array.from({ length: 100 }, () => Math.floor(Math.random() * 31312));
-}
+let numberOfRestaurantsInCityCentre = restaurantFinderApplication.countNumberOfRestaurantsInArea(
+  "center"
+);
+console.log(
+  `Number of restaurants in city centre: Expected result: 2, actual result: ${numberOfRestaurantsInCityCentre}`
+);

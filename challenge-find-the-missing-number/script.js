@@ -1,35 +1,75 @@
-function missingNum(arr) {
-  //Write your code in here. You should return the missing the number below.
-  return 0;
-}
+/*
+An array of travel destinations is defined below.
+Each destination has a name, a distance from Glasgow, and a list of transportations available to go there.
 
-/**                            */
-/**                            */
-/** DO NOT EDIT BELOW THIS LINE*/
-/**                            */
-/**                            */
+1) Filter the travelDestinations array to return all destination names reachable within 500 kms.
+2) Find a destination name reachable by ferry.
+3) Print in the console all the destination names more than 300 kms far away and reachable by train.
+*/
 
-const util = require("util");
+let destination1 = {
+  destinationName: "Edinburgh",
+  distanceKms: 80,
+  transportations: ["car", "bus", "train"],
+};
 
-test("Test 1", missingNum([1, 2, 3, 4, 6, 7, 8, 9, 10]), 5);
-test("Test 2", missingNum([7, 2, 3, 6, 5, 9, 1, 4, 8]), 10);
-test("Test 3", missingNum([7, 2, 3, 9, 4, 5, 6, 8, 10]), 1);
-test("Test 4", missingNum([10, 5, 1, 2, 4, 6, 8, 3, 9]), 7);
-test("Test 5", missingNum([1, 7, 2, 4, 8, 10, 5, 6, 9]), 3);
+let destination2 = {
+  destinationName: "London",
+  distanceKms: 650,
+  transportations: ["car", "bus", "train"],
+};
 
-function test(test_name, actual, expected) {
-  let status;
-  if (actual === expected) {
-    status = "PASSED";
-  } else {
-    status = `FAILED: expected: ${util.inspect(
-      expected
-    )} but your function returned: ${util.inspect(actual)}`;
+let destination3 = {
+  destinationName: "Paris",
+  distanceKms: 900,
+  transportations: ["train", "plane"],
+};
+
+let destination4 = {
+  destinationName: "Dublin",
+  distanceKms: 350,
+  transportations: ["plane", "ferry"],
+};
+
+let travelDestinations = [
+  destination1,
+  destination2,
+  destination3,
+  destination4,
+];
+
+/*
+DO NOT EDIT ANYTHING ABOVE THIS LINE
+WRITE YOUR CODE BELOW
+*/
+
+let destinationNamesWithin500Kms = travelDestinations.filter((item) => {
+  return item.distanceKms <= 500;
+});
+
+let destinationNameReachableByFerry = travelDestinations.find((item) => {
+  if (item.transportations.includes("ferry")) {
+    return item.destinationName;
   }
+}); // Complete here
 
-  console.log(`${test_name}: ${status}`);
-}
+let destinationNamesMoreThan300KmsAwayByTrain = travelDestinations.filter(
+  (item) => item.distanceKms > 300 && item.transportations.includes("train")
+);
+destinationNamesMoreThan300KmsAwayByTrain.forEach((item) => {
+  console.log(item.destinationName);
+});
+/*cd ..
 
-function generateLargeListOfNumbers() {
-  return Array.from({ length: 100 }, () => Math.floor(Math.random() * 31312));
-}
+DO NOT EDIT ANYTHING BELOW THIS LINE
+*/
+
+console.log(
+  `Question 1) Expected result: Edinburgh,Dublin, actual result: ${destinationNamesWithin500Kms}`
+);
+console.log(
+  `Question 2) Expected result: Dublin, actual result: ${destinationNameReachableByFerry}`
+);
+console.log(
+  `Question 3) Expected result: London,Paris, actual result:  ${destinationNamesMoreThan300KmsAwayByTrain}`
+);
